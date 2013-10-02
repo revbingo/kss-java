@@ -6,7 +6,6 @@ import java.util.regex.Pattern;
 
 public class Section {
 
-	private Pattern STYLEGUIDE_PATTERN = Pattern.compile("(?<!No)Styleguide [0-9A-Za-z ]+");
 	private String raw;
 	private String filename;
 	private String[] commentSections;
@@ -39,7 +38,7 @@ public class Section {
 	
 	private String getSectionComment() {
 		for(String comment : commentSections()) {
-			Matcher m = STYLEGUIDE_PATTERN.matcher(comment);
+			Matcher m = KssParser.STYLEGUIDE_PATTERN.matcher(comment);
 			if(m.find()) {
 				return comment;
 			}
