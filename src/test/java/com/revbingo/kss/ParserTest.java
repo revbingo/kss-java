@@ -95,7 +95,6 @@ public class ParserTest {
 	}
 	
 	@Test
-	@Ignore("make me work")
 	public void publicSectionsReturnsHashOfSections() throws Exception {
 		assertThat(cssParsed.sections.size(), is(5));
 	}
