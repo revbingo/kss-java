@@ -26,15 +26,6 @@ public class ParserTest {
 		multiParsed = new KssParser("src/test/resources/scss", "src/test/resources/less");
 	}
 	
-//	def setup
-//    @scss_parsed = Kss::Parser.new('test/fixtures/scss')
-//    @sass_parsed = Kss::Parser.new('test/fixtures/sass')
-//    @css_parsed = Kss::Parser.new('test/fixtures/css')
-//    @less_parsed = Kss::Parser.new('test/fixtures/less')
-//    @multiple_parsed = Kss::Parser.new('test/fixtures/scss', 'test/fixtures/less')
-//  end
-//
-	
 	@Test
 	public void parsesKSSCommentsInSCSS() throws Exception {
 		assertThat(scssParsed.getSection("2.1.1").getDescription(), is("Your standard form button."));
@@ -155,16 +146,4 @@ public class ParserTest {
 			fail();
 		}
 	}
-//	  test "parse with no styleguide reference comment" do
-//	    scss_input =<<-'EOS'
-//	      // Nothing here
-//	      //
-//	      // No styleguide reference.
-//	      input[type="text"] {
-//	        border: 1px solid #ccc;
-//	      }
-//	    EOS
-//
-//	    assert Kss::Parser.new(scss_input)
-//	  end
 }
