@@ -12,5 +12,5 @@ public class Modifier {
 	
 	public String className() {
 		return name.replaceAll("\\.", "").replaceAll(":", " pseudo-class-").trim();
-	}
+    }	
 }

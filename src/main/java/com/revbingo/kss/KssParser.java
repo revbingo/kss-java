@@ -12,19 +12,19 @@ import org.apache.commons.io.filefilter.IOFileFilter;
 
 public class KssParser {
 
-	public static final Pattern STYLEGUIDE_PATTERN = Pattern.compile("(?<!No)Styleguide [0-9A-Za-z ]+");
+	public static final Pattern STYLEGUIDE_PATTERN = Pattern.compile("(?i)(?<!No )Styleguide [0-9A-Za-z ]+");
 	Map<String, Section> sections = new HashMap<String, Section>();
 	
 	IOFileFilter cssFilter = new IOFileFilter() {
 
 		@Override
-		public boolean accept(File arg0, String arg1) {
-			return accept(arg0);
+		public boolean accept(File dir, String filename) {
+			return accept(dir);
 		}
 
 		@Override
-		public boolean accept(File arg0) {
-			String name = arg0.getName();
+		public boolean accept(File filename) {
+			String name = filename.getName();
 			return name.endsWith("css") 
 					|| name.endsWith("scss")
 					|| name.endsWith("less")
