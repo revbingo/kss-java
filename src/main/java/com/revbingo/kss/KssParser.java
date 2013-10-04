@@ -13,7 +13,7 @@ import org.apache.commons.io.filefilter.IOFileFilter;
 public class KssParser {
 
 	public static final Pattern STYLEGUIDE_PATTERN = Pattern.compile("(?i)(?<!No )Styleguide [0-9A-Za-z ]+");
-	Map<String, Section> sections = new HashMap<String, Section>();
+	private Map<String, Section> sections = new HashMap<String, Section>();
 	
 	IOFileFilter cssFilter = new IOFileFilter() {
 
@@ -71,5 +71,9 @@ public class KssParser {
 	public void addSection(String block, String filename) {
 		Section section = new Section(block, filename);
 		sections.put(section.getSection(), section);
+	}
+	
+	public Map<String, Section> getSections() {
+		return sections;
 	}
 }

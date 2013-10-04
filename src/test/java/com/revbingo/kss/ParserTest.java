@@ -94,17 +94,12 @@ public class ParserTest {
 	
 	@Test
 	public void publicSectionsReturnsHashOfSections() throws Exception {
-		assertThat(cssParsed.sections.size(), is(5));
+		assertThat(cssParsed.getSections().size(), is(5));
 	}
-	
-//	  test "public sections returns hash of sections" do
-//	    assert_equal 5, @css_parsed.sections.count
-//	  end
-//
 	
 	@Test
 	public void parseMultiPaths() throws Exception {
-		assertThat(multiParsed.sections.size(), is(7));
+		assertThat(multiParsed.getSections().size(), is(7));
 	}
 
 	@Test
