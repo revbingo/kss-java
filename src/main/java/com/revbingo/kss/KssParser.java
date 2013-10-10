@@ -39,21 +39,20 @@ public class KssParser {
 				Iterator<File> fileIterator = FileUtils.iterateFiles(f, cssFilter, null);
 				while(fileIterator.hasNext()) {
 					File cssfile = fileIterator.next();
-					CommentParser parser = new CommentParser(cssfile.getAbsolutePath());
-					for(String block : parser.blocks()) {
-						if(isKssBlock(block)) {
-							addSection(block, cssfile.getName());
-						}
-					}
+					addKssBlocks(cssfile.getAbsolutePath(), cssfile.getName());
 				}
 			} else {
 				String kssString = pathOrString;
-				CommentParser parser = new CommentParser(kssString);
-				for(String block : parser.blocks()) {
-					if(isKssBlock(block)) {
-						addSection(block, "");
-					}
-				}
+				addKssBlocks(kssString, "");
+			}
+		}
+	}
+
+	private void addKssBlocks(String kssString, String fileName) {
+		CommentParser parser = new CommentParser(kssString);
+		for(String block : parser.blocks()) {
+			if(isKssBlock(block)) {
+				addSection(block, "");
 			}
 		}
 	}
