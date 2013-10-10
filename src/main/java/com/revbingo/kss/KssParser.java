@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.IOFileFilter;
+import org.apache.commons.io.filefilter.SuffixFileFilter;
 
 
 public class KssParser {
@@ -15,23 +16,8 @@ public class KssParser {
 	public static final Pattern STYLEGUIDE_PATTERN = Pattern.compile("(?i)(?<!No )Styleguide [0-9A-Za-z ]+");
 	private Map<String, Section> sections = new HashMap<String, Section>();
 	
-	IOFileFilter cssFilter = new IOFileFilter() {
-
-		@Override
-		public boolean accept(File dir, String filename) {
-			return accept(dir);
-		}
-
-		@Override
-		public boolean accept(File filename) {
-			String name = filename.getName();
-			return name.endsWith("css") 
-					|| name.endsWith("scss")
-					|| name.endsWith("less")
-					|| name.endsWith("sass");
-		}
-		
-	};
+	IOFileFilter cssFilter = new SuffixFileFilter(new String[] {"css", "less", "scss", "sass"});
+	
 	public KssParser(String... pathsOrStrings) {
 		for(String pathOrString : pathsOrStrings) {
 			File f = new File(pathOrString);
