@@ -19,7 +19,7 @@ public class StyleguideSection {
 	public String getDescription() {
 		StringBuffer description = new StringBuffer();
 		for(String section : commentSections()) {
-			if(!isSectionComment(section) && !isModifierComment(section)) {
+			if(!isSectionReferenceCommentLine(section) && !isModifierCommentLines(section)) {
 				description.append(section);
 				description.append("\n\n");
 			}
@@ -32,11 +32,23 @@ public class StyleguideSection {
 		return commentSections;
 	}
 
-	private boolean isSectionComment(String section) {
-		return section.equals(getSectionComment());
+	public String getSectionReference() {
+		if(styleGuideSection != null) return styleGuideSection;
+		
+		String cleaned = getSectionReferenceCommentLine().trim().replaceAll("\\.$", "");
+		Matcher m = Pattern.compile("Styleguide (.+)").matcher(cleaned);
+		if(m.find()) {
+			return m.group(1);
+		} else {
+			return null;
+		}
 	}
 	
-	private String getSectionComment() {
+	private boolean isSectionReferenceCommentLine(String section) {
+		return section.equals(getSectionReferenceCommentLine());
+	}
+	
+	private String getSectionReferenceCommentLine() {
 		for(String comment : commentSections()) {
 			Matcher m = KssParser.STYLEGUIDE_PATTERN.matcher(comment);
 			if(m.find()) {
@@ -45,38 +57,12 @@ public class StyleguideSection {
 		}
 		return null;
 	}
-	
-	private boolean isModifierComment(String section) {
-		return getModifiersComment().equals(section);
-	}
-	
-	private String getModifiersComment() {
-		String lastComment = ""; 
-		String[] commentSections = commentSections();
-		for(int i=1; i <= commentSections.length - 1; i++) {
-			if(!isSectionComment(commentSections[i])) {
-				lastComment = commentSections[i];
-			}
-		}
-		return lastComment;
-	}
-
-	public String getSection() {
-		if(styleGuideSection != null) return styleGuideSection;
-		
-		String cleaned = getSectionComment().trim().replaceAll("\\.$", "");
-		Matcher m = Pattern.compile("Styleguide (.+)").matcher(cleaned);
-		if(m.find()) {
-			return m.group(1);
-		}
-		return null;
-	}
 
 	public ArrayList<Modifier> getModifiers() {
 		Integer lastIndent = null;
 		ArrayList<Modifier> modifiers = new ArrayList<Modifier>();
 		
-		String modifiersComment = getModifiersComment();
+		String modifiersComment = getModifiersText();
 		if(modifiersComment == null) return modifiers;
 		
 		Pattern precedingWhitespacePattern = Pattern.compile("^\\s*");
@@ -104,5 +90,20 @@ public class StyleguideSection {
 			lastIndent = indent;
 		}
 		return modifiers;
+	}
+
+	private boolean isModifierCommentLines(String section) {
+		return getModifiersText().equals(section);
+	}
+	
+	private String getModifiersText() {
+		String lastComment = ""; 
+		String[] commentSections = commentSections();
+		for(int i=1; i <= commentSections.length - 1; i++) {
+			if(!isSectionReferenceCommentLine(commentSections[i])) {
+				lastComment = commentSections[i];
+			}
+		}
+		return lastComment;
 	}
 }

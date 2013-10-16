@@ -49,7 +49,7 @@ public class SectionTest {
 	
 	@Test
 	public void parsesTheStyleguideReference() throws Exception {
-		assertThat(unit.getSection(), is("2.1.1"));
+		assertThat(unit.getSectionReference(), is("2.1.1"));
 	}
 
 	@Test
@@ -57,6 +57,6 @@ public class SectionTest {
 		String newCommentText = commentText.replace("2.1.1", "Buttons - Truly Lime");
 		
 		StyleguideSection unit = new StyleguideSection(newCommentText, "example.css");
-		assertThat(unit.getSection(), is("Buttons - Truly Lime"));
+		assertThat(unit.getSectionReference(), is("Buttons - Truly Lime"));
 	}
 }

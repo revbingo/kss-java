@@ -28,17 +28,17 @@ public class KssParser {
 			}
 		}
 	}
-
+	
 	private void addKssBlocks(String kssString, String fileName) {
 		CommentParser parser = new CommentParser(kssString);
 		for(String block : parser.blocks()) {
-			if(isKssBlock(block)) {
+			if(hasStyleguideReference(block)) {
 				addStyleguideSection(block, "");
 			}
 		}
 	}
 
-	public static boolean isKssBlock(String block) {
+	public static boolean hasStyleguideReference(String block) {
 		String[] lines = block.split("\n\n");
 		String styleguideLine = lines[lines.length - 1];
 		return STYLEGUIDE_PATTERN.matcher(styleguideLine).find();
@@ -46,7 +46,7 @@ public class KssParser {
 	
 	public void addStyleguideSection(String block, String filename) {
 		StyleguideSection section = new StyleguideSection(block, filename);
-		sections.put(section.getSection(), section);
+		sections.put(section.getSectionReference(), section);
 	}
 	
 	public Map<String, StyleguideSection> getStyleguideSections() {
