@@ -9,7 +9,7 @@ import org.junit.Test;
 public class SectionTest {
 
 	private String commentText;
-	private Section unit;
+	private StyleguideSection unit;
 	
 	@Before
 	public void setup() {
@@ -24,7 +24,7 @@ public class SectionTest {
 					+ "\n"
 					+ "Styleguide 2.1.1.\n";
 		
-		unit = new Section(commentText, "example.css");
+		unit = new StyleguideSection(commentText, "example.css");
 	}
 	
 	@Test
@@ -56,7 +56,7 @@ public class SectionTest {
 	public void parsesWordPhrasesAsStyleGuideReferences() throws Exception {
 		String newCommentText = commentText.replace("2.1.1", "Buttons - Truly Lime");
 		
-		Section unit = new Section(newCommentText, "example.css");
+		StyleguideSection unit = new StyleguideSection(newCommentText, "example.css");
 		assertThat(unit.getSection(), is("Buttons - Truly Lime"));
 	}
 }

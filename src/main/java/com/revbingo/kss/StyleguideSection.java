@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Section {
+public class StyleguideSection {
 
 	private String raw;
 	private String filename;
 	private String[] commentSections;
 	private String styleGuideSection;
 	
-	public Section(String commentText, String filename) {
+	public StyleguideSection(String commentText, String filename) {
 		this.raw = commentText;
 		this.filename = filename;
 	}

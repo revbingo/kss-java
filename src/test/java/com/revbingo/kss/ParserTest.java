@@ -26,80 +26,80 @@ public class ParserTest {
 	
 	@Test
 	public void parsesKSSCommentsInSCSS() throws Exception {
-		assertThat(scssParsed.getSection("2.1.1").getDescription(), is("Your standard form button."));
+		assertThat(scssParsed.getStyleguideSection("2.1.1").getDescription(), is("Your standard form button."));
 	}
 	
 	@Test
 	public void parsesKSSKeysThatAreWordsInSCSS() throws Exception {
-		assertThat(scssParsed.getSection("Buttons.Big").getDescription(), is("A big button"));
+		assertThat(scssParsed.getStyleguideSection("Buttons.Big").getDescription(), is("A big button"));
 	}
 	
 	@Test
 	public void parsesKSSCommentsInLESS() throws Exception {
-		assertThat(lessParsed.getSection("2.1.1").getDescription(), is("Your standard form button."));
+		assertThat(lessParsed.getStyleguideSection("2.1.1").getDescription(), is("Your standard form button."));
 	}
 	
 	@Test
 	public void parsesKSSKeysThatAreWordsInLESS() throws Exception {
-		assertThat(lessParsed.getSection("Buttons.Big").getDescription(), is("A big button"));
+		assertThat(lessParsed.getStyleguideSection("Buttons.Big").getDescription(), is("A big button"));
 	}
 	
 	@Test
 	public void parsesKSSMultiLineCommentsInSASS() throws Exception {
-		assertThat(sassParsed.getSection("2.1.1").getDescription(), is("Your standard form button."));
+		assertThat(sassParsed.getStyleguideSection("2.1.1").getDescription(), is("Your standard form button."));
 	}
 	
 	@Test
 	public void parsesKSSSingleLineCommentsInSASS() throws Exception {
-		assertThat(sassParsed.getSection("2.2.1").getDescription(), is("A button suitable for giving stars to someone."));
+		assertThat(sassParsed.getStyleguideSection("2.2.1").getDescription(), is("A button suitable for giving stars to someone."));
 	}
 
 	@Test
 	public void parsesKSSKeysThatAreWordsInSASS() throws Exception {
-		assertThat(sassParsed.getSection("Buttons.Big").getDescription(), is("A big button"));
+		assertThat(sassParsed.getStyleguideSection("Buttons.Big").getDescription(), is("A big button"));
 	}
 
 	@Test
 	public void parsesKSSCommentsInCSS() throws Exception {
-		assertThat(cssParsed.getSection("2.1.1").getDescription(), is("Your standard form button."));
+		assertThat(cssParsed.getStyleguideSection("2.1.1").getDescription(), is("Your standard form button."));
 	}
 	
 	@Test
 	public void parsesKSSKeysThatAreWordsInCSS() throws Exception {
-		assertThat(cssParsed.getSection("Buttons.Big").getDescription(), is("A big button"));
+		assertThat(cssParsed.getStyleguideSection("Buttons.Big").getDescription(), is("A big button"));
 	}
 
 	@Test
 	public void parsesKSSKeysThatAreWordPhrasesInCSS() throws Exception {
-		assertThat(cssParsed.getSection("Buttons - Truly Lime").getDescription(), is("A button truly lime in color"));
+		assertThat(cssParsed.getStyleguideSection("Buttons - Truly Lime").getDescription(), is("A button truly lime in color"));
 	}
 	
 	@Test
 	public void parsesNestedSCSSDocuments() throws Exception {
-		assertThat(scssParsed.getSection("3.0.0").getDescription(), is("Your standard form element."));
-		assertThat(scssParsed.getSection("3.0.1").getDescription(), is("Your standard text input box."));
+		assertThat(scssParsed.getStyleguideSection("3.0.0").getDescription(), is("Your standard form element."));
+		assertThat(scssParsed.getStyleguideSection("3.0.1").getDescription(), is("Your standard text input box."));
 	}
 	
 	@Test
 	public void parsesNestedLESSDocuments() throws Exception {
-		assertThat(lessParsed.getSection("3.0.0").getDescription(), is("Your standard form element."));
-		assertThat(lessParsed.getSection("3.0.1").getDescription(), is("Your standard text input box."));
+		assertThat(lessParsed.getStyleguideSection("3.0.0").getDescription(), is("Your standard form element."));
+		assertThat(lessParsed.getStyleguideSection("3.0.1").getDescription(), is("Your standard text input box."));
 	}
 	
 	@Test
 	public void parsesNestedSASSDocuments() throws Exception {
-		assertThat(sassParsed.getSection("3.0.0").getDescription(), is("Your standard form element."));
-		assertThat(sassParsed.getSection("3.0.1").getDescription(), is("Your standard text input box."));
+		assertThat(sassParsed.getStyleguideSection("3.0.0").getDescription(), is("Your standard form element."));
+		assertThat(sassParsed.getStyleguideSection("3.0.1").getDescription(), is("Your standard text input box."));
 	}
 	
 	@Test
 	public void publicSectionsReturnsHashOfSections() throws Exception {
-		assertThat(cssParsed.getSections().size(), is(5));
+		assertThat(cssParsed.getStyleguideSections().size(), is(5));
 	}
 	
 	@Test
 	public void parseMultiPaths() throws Exception {
-		assertThat(multiParsed.getSections().size(), is(7));
+		assertThat(multiParsed.getStyleguideSections().size(), is(7));
 	}
 
 	@Test
@@ -117,8 +117,8 @@ public class ParserTest {
 							"  }\n" +
 							"}\n";
 		
-		assertThat(new KssParser(scssInput).getSection("3.0.0").getDescription(), is("Your standard form element."));
-		assertThat(new KssParser(scssInput).getSection("3.0.1").getDescription(), is("Your standard text input box."));
+		assertThat(new KssParser(scssInput).getStyleguideSection("3.0.0").getDescription(), is("Your standard form element."));
+		assertThat(new KssParser(scssInput).getStyleguideSection("3.0.1").getDescription(), is("Your standard text input box."));
 		
 	}
 	
