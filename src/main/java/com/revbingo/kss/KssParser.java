@@ -14,17 +14,20 @@ public class KssParser {
 	public static final Pattern STYLEGUIDE_PATTERN = Pattern.compile("(?i)(?<!No )Styleguide [0-9A-Za-z ]+");
 	private Map<String, StyleguideSection> sections = new HashMap<String, StyleguideSection>();
 	
-	public KssParser(String... pathsOrStrings) {
-		for(String pathOrString : pathsOrStrings) {
-			File f = new File(pathOrString);
-			if(f.exists() && f.isDirectory()) {
-				Iterator<File> fileIterator = FileUtils.iterateFiles(f, new String[] {"css", "less", "scss", "sass"}, true);
+	public KssParser(String... cssStrings) {
+		for(String css : cssStrings) {
+			addKssBlocks(css, "");
+		}
+	}
+	
+	public KssParser(File... cssDirectories) {
+		for(File cssDirectory : cssDirectories) {
+			if(cssDirectory.exists() && cssDirectory.isDirectory()) {
+				Iterator<File> fileIterator = FileUtils.iterateFiles(cssDirectory, new String[] {"css", "less", "scss", "sass"}, true);
 				while(fileIterator.hasNext()) {
 					File cssfile = fileIterator.next();
 					addKssBlocks(cssfile.getAbsolutePath(), cssfile.getName());
 				}
-			} else {
-				addKssBlocks(pathOrString, "");
 			}
 		}
 	}

@@ -4,6 +4,8 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
+import java.io.File;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,11 +19,11 @@ public class ParserTest {
 	
 	@Before
 	public void setup() throws Exception {
-		scssParsed = new KssParser("src/test/resources/scss");
-		lessParsed = new KssParser("src/test/resources/less");
-		sassParsed = new KssParser("src/test/resources/sass");
-		cssParsed = new KssParser("src/test/resources/css");
-		multiParsed = new KssParser("src/test/resources/scss", "src/test/resources/less");
+		scssParsed = new KssParser(new File("src/test/resources/scss"));
+		lessParsed = new KssParser(new File("src/test/resources/less"));
+		sassParsed = new KssParser(new File("src/test/resources/sass"));
+		cssParsed = new KssParser(new File("src/test/resources/css"));
+		multiParsed = new KssParser(new File("src/test/resources/scss"), new File("src/test/resources/less"));
 	}
 	
 	@Test
@@ -131,7 +133,7 @@ public class ParserTest {
 				"input[type=\"text\"] {\n" +
 				"  border: 1px solid #ccc;\n" +
 				"}\n";
-		
+	
 		try {
 			new KssParser(scssInput);
 		} catch(Exception e) {

@@ -13,12 +13,13 @@ public class StyleguideSection {
 	
 	public StyleguideSection(String commentText, String filename) {
 		this.raw = commentText;
+		this.commentSections = raw.split("\n\n");
 		this.filename = filename;
 	}
 
 	public String getDescription() {
 		StringBuffer description = new StringBuffer();
-		for(String section : commentSections()) {
+		for(String section : commentSections) {
 			if(!isSectionReferenceCommentLine(section) && !isModifierCommentLines(section)) {
 				description.append(section);
 				description.append("\n\n");
@@ -27,11 +28,6 @@ public class StyleguideSection {
 		return description.toString().substring(0, description.length() - 2);
 	}
 	
-	public String[] commentSections() {
-		commentSections = raw.split("\n\n");
-		return commentSections;
-	}
-
 	public String getSectionReference() {
 		if(styleGuideSection != null) return styleGuideSection;
 		
@@ -49,7 +45,7 @@ public class StyleguideSection {
 	}
 	
 	private String getSectionReferenceCommentLine() {
-		for(String comment : commentSections()) {
+		for(String comment : commentSections) {
 			Matcher m = KssParser.STYLEGUIDE_PATTERN.matcher(comment);
 			if(m.find()) {
 				return comment;
@@ -98,7 +94,6 @@ public class StyleguideSection {
 	
 	private String getModifiersText() {
 		String lastComment = ""; 
-		String[] commentSections = commentSections();
 		for(int i=1; i <= commentSections.length - 1; i++) {
 			if(!isSectionReferenceCommentLine(commentSections[i])) {
 				lastComment = commentSections[i];
