@@ -53,8 +53,29 @@ public class CommentParserTest {
 	}
 	
 	@Test
-	public void parsesAllCommentBlocks() throws Exception {
+	public void parsesCorrectNumberOfCommentBlocks() throws Exception {
 		assertThat(parsedComments.size(), is(7));
+	}
+	
+	@Test
+	public void handlesWindowsLineEndings() throws Exception {
+		String windowsString = "/* I'm a Mac\r\nAnd I'm a PC! */";
+		
+		assertThat(new CommentParser(windowsString).blocks().size(), is(1));
+	}
+	
+	@Test
+	public void handlesUnixLineEndings() throws Exception {
+		String unixString = "/* I'm a Mac\nAnd I'm a PC! */";
+		
+		assertThat(new CommentParser(unixString).blocks().size(), is(1));
+	}
+	
+	@Test
+	public void handlesOldMacLineEndings() throws Exception {
+		String unixString = "/* I'm a Mac\rAnd I'm a PC! */";
+		
+		assertThat(new CommentParser(unixString).blocks().size(), is(1));
 	}
 	
 	@Test

@@ -6,6 +6,8 @@ import java.util.regex.Pattern;
 
 public class CommentParser {
 
+	private final static String CROSS_PLATFORM_LINE_ENDINGS_REGEX = "(?>\r\n|[\r\n])";
+	
 	private String stringToRead;
 	private ArrayList<String> blocks;
 	private boolean parsed;
@@ -33,7 +35,7 @@ public class CommentParser {
 		boolean insideSingleLineBlock = false;
 		boolean insideMultiLineBlock = false;
 		
-		for(String line : input.split("\n")) {
+		for(String line : input.split(CROSS_PLATFORM_LINE_ENDINGS_REGEX)) {
 			if(isSingleLineComment(line)) {
 				String parsed = parseSingleLine(line);
 				if(insideSingleLineBlock) {
