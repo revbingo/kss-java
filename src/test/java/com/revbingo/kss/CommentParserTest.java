@@ -53,6 +53,11 @@ public class CommentParserTest {
 	}
 	
 	@Test
+	public void parsesAllCommentBlocks() throws Exception {
+		assertThat(parsedComments.size(), is(7));
+	}
+	
+	@Test
 	public void findsSingleLineCommentStyles() throws Exception {
 		String expectedComment = "This comment block has comment identifiers on every line.\n\nFun fact: this is Kyle's favorite comment syntax!";
 		

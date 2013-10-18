@@ -60,7 +60,10 @@ public class CommentParser {
 			
 			if(!isSingleLineComment(line) && !insideMultiLineBlock) {
 				if(currentBlock != null) {
-					blocks.add(normalize(currentBlock));
+					String normalizedBlock = normalize(currentBlock);
+					if(!"".equals(normalizedBlock)) {
+						blocks.add(normalizedBlock);
+					}
 				}
 				
 				insideSingleLineBlock = false;
