@@ -30,40 +30,40 @@ public class CommentParser {
 
 	private ArrayList<String> parseBlocksInput(String input) {
 		String currentBlock = "";
-		boolean inside_single_line_block = false;
-		boolean inside_multi_line_block = false;
+		boolean insideSingleLineBlock = false;
+		boolean insideMultiLineBlock = false;
 		
 		for(String line : input.split("\n")) {
 			if(isSingleLineComment(line)) {
 				String parsed = parseSingleLine(line);
-				if(inside_single_line_block) {
+				if(insideSingleLineBlock) {
 					currentBlock += "\n" + parsed;
 				} else {
 					currentBlock = parsed;
-					inside_single_line_block = true;
+					insideSingleLineBlock = true;
 				}
 			}
 			
-			if(isStartOfMultiLineComment(line) || inside_multi_line_block) {
+			if(isStartOfMultiLineComment(line) || insideMultiLineBlock) {
 				String parsed = parseMultiLine(line);
-				if(inside_multi_line_block) {
+				if(insideMultiLineBlock) {
 					currentBlock += "\n" + parsed;
 				} else {
 					currentBlock = parsed;
-					inside_multi_line_block = true;
+					insideMultiLineBlock = true;
 				}
 			}
 			
 			if(isEndOfMultiLineComment(line)) {
-				inside_multi_line_block = false;
+				insideMultiLineBlock = false;
 			}
 			
-			if(!isSingleLineComment(line) && !inside_multi_line_block) {
+			if(!isSingleLineComment(line) && !insideMultiLineBlock) {
 				if(currentBlock != null) {
 					blocks.add(normalize(currentBlock));
 				}
 				
-				inside_single_line_block = false;
+				insideSingleLineBlock = false;
 				currentBlock = null;
 			}
 		}
