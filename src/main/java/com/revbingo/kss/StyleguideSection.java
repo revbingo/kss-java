@@ -20,7 +20,7 @@ public class StyleguideSection {
 	public String getDescription() {
 		StringBuffer description = new StringBuffer();
 		for(String section : commentSections) {
-			if(!isSectionReferenceCommentLine(section) && !isModifierCommentLines(section)) {
+			if(!isSectionReferenceCommentLine(section) && !isModifierCommentLines(section) && !isMarkupLine(section)) {
 				description.append(section);
 				description.append("\n\n");
 			}
@@ -100,5 +100,19 @@ public class StyleguideSection {
 			}
 		}
 		return lastComment;
+	}
+	
+	private boolean isMarkupLine(String section) {
+		return section.startsWith("Markup: ");
+	}
+
+	public String getMarkup() {
+		String markup = null;
+		for(String section : commentSections) {
+			if(isMarkupLine(section)) {
+				markup = section.replace("Markup: ", "");
+			}
+		}
+		return markup;
 	}
 }
