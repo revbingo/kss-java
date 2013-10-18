@@ -3,8 +3,13 @@ package com.revbingo.kss;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import org.apache.commons.io.FileUtils;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,9 +18,9 @@ public class CommentParserTest {
 	private ArrayList<String> parsedComments;
 	
 	@Before
-	public void loadFixtures() {
+	public void loadFixtures() throws IOException {
 		String filePath = "src/test/resources/comments.txt";
-		CommentParser unit = new CommentParser(filePath);
+		CommentParser unit = new CommentParser(FileUtils.readFileToString(new File(filePath)));
 		parsedComments = unit.blocks();
 	}
 	
@@ -77,4 +82,5 @@ public class CommentParserTest {
 		assertThat(parsedComments.contains("Indented single-line comment."), is(true));
 		assertThat(parsedComments.contains("Indented block comment."), is(true));
 	}
+	
 }

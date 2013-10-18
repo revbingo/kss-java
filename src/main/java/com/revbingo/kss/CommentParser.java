@@ -1,29 +1,18 @@
 package com.revbingo.kss;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CommentParser {
 
-	private File fileToRead;
 	private String stringToRead;
 	private ArrayList<String> blocks;
 	private boolean parsed;
 	private boolean preserveWhitespace = false;
 	
-	public CommentParser(String filePathOrStringInput) {
-		File file = new File(filePathOrStringInput);
-		if(file.exists()) {
-			fileToRead = file;
-		} else {
-			stringToRead = filePathOrStringInput;
-		}
-		
+	public CommentParser(String input) {
+		stringToRead = input;
 		blocks = new ArrayList<String>();
 		parsed = false;
 	}
@@ -34,19 +23,9 @@ public class CommentParser {
 
 	public ArrayList<String> blocks() {
 		if(!parsed) {
-			blocks = parseBlocks();
+			blocks = parseBlocksInput(stringToRead);
 		}
 		return blocks;
-	}
-	
-	private ArrayList<String> parseBlocks() {
-		String input;
-		if(fileToRead != null) {
-			input = readFile();
-		} else {
-			input = stringToRead;
-		}
-		return parseBlocksInput(input);
 	}
 
 	private ArrayList<String> parseBlocksInput(String input) {
@@ -142,28 +121,6 @@ public class CommentParser {
 
 	public static String parseMultiLine(String line) {
 		return rstrip(line.replaceFirst("\\s*/\\*", "").replaceFirst("\\*/", ""));
-	}
-
-	private String readFile() {
-		BufferedReader br = null;
-		StringBuffer stringInput = null;
-		try {
-			br = new BufferedReader(new FileReader(fileToRead));
-			stringInput = new StringBuffer();
-			String s = "";
-			while((s = br.readLine()) != null) {
-				stringInput.append(s);
-				stringInput.append("\n");
-			}
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		} finally {
-			try {
-				br.close();
-			} catch (IOException e) {}
-		}
-		
-		return stringInput.toString();
 	}
 	
 	private static String rstrip(String input) {

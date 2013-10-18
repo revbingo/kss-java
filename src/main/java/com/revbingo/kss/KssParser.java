@@ -1,6 +1,9 @@
 package com.revbingo.kss;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -20,13 +23,13 @@ public class KssParser {
 		}
 	}
 	
-	public KssParser(File... cssDirectories) {
+	public KssParser(File... cssDirectories) throws IOException {
 		for(File cssDirectory : cssDirectories) {
 			if(cssDirectory.exists() && cssDirectory.isDirectory()) {
 				Iterator<File> fileIterator = FileUtils.iterateFiles(cssDirectory, new String[] {"css", "less", "scss", "sass"}, true);
 				while(fileIterator.hasNext()) {
 					File cssfile = fileIterator.next();
-					addKssBlocks(cssfile.getAbsolutePath(), cssfile.getName());
+					addKssBlocks(FileUtils.readFileToString(cssfile), cssfile.getName());
 				}
 			}
 		}
