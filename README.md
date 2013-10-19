@@ -1,7 +1,7 @@
 kss-java
 ========
 
-A port of github.com/kneath/kss (v0.5.0) to Java
+A port of [github.com/kneath/kss] (v0.5.0) to Java
 
 ## What is it?
 
