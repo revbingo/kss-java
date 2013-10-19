@@ -54,7 +54,8 @@ modifier.description; // "Subtle hover highlight"
 
 ```
 
-Instead of passing a File, you can also pass a String to be parsed.
+The `File` passed to the constructor defines a directory to recursively search for CSS, LESS, SASS or SCSS files. 
+Instead of passing a `File`, you can also pass a `String` to be parsed.
 
 If you are a user of Play! Framework 1.2, you can automagically create styleguides in your webapp with the 
 [kss-play] (https://github.com/revbingo/kss-play) module
